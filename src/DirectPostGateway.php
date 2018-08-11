@@ -8,6 +8,8 @@ use Omnipay\Common\AbstractGateway;
  *
  * @link https://www.nmi.com/
  * @link https://gateway.perpetualpayments.com/merchants/resources/integration/integration_portal.php
+ * @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = array())
  */
 class DirectPostGateway extends AbstractGateway
 {
@@ -293,8 +295,8 @@ class DirectPostGateway extends AbstractGateway
 
     /**
      * Transaction sales are submitted and immediately flagged for settlement.
-     * @param  array  $parameters
-     * @return \Omnipay\NMI\Message\DirectPostSaleRequest
+     * @param  array $parameters
+     * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function sale(array $parameters = array())
     {
@@ -306,8 +308,8 @@ class DirectPostGateway extends AbstractGateway
      * for settlement. These transactions must be flagged for settlement using
      * the capture transaction type. Authorizations typically remain active for
      * three to seven business days.
-     * @param  array  $parameters
-     * @return \Omnipay\NMI\Message\DirectPostAuthRequest
+     * @param  array $parameters
+     * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function auth(array $parameters = array())
     {
@@ -318,8 +320,8 @@ class DirectPostGateway extends AbstractGateway
      * Transaction captures flag existing authorizations for settlement.
      * Only authorizations can be captured. Captures can be submitted for an
      * amount equal to or less than the original authorization.
-     * @param  array  $parameters
-     * @return \Omnipay\NMI\Message\DirectPostCaptureRequest
+     * @param  array $parameters
+     * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function capture(array $parameters = array())
     {
@@ -330,8 +332,8 @@ class DirectPostGateway extends AbstractGateway
      * Transaction voids will cancel an existing sale or captured authorization.
      * In addition, non-captured authorizations can be voided to prevent any
      * future capture. Voids can only occur if the transaction has not been settled.
-     * @param  array  $parameters
-     * @return \Omnipay\NMI\Message\DirectPostVoidRequest
+     * @param  array $parameters
+     * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function void(array $parameters = array())
     {
@@ -341,8 +343,8 @@ class DirectPostGateway extends AbstractGateway
     /**
      * Transaction refunds will reverse a previously settled transaction. If the
      * transaction has not been settled, it must be voided instead of refunded.
-     * @param  array  $parameters
-     * @return \Omnipay\NMI\Message\DirectPostRefundRequest
+     * @param  array $parameters
+     * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function refund(array $parameters = array())
     {
@@ -353,8 +355,8 @@ class DirectPostGateway extends AbstractGateway
      * Transaction credits apply an amount to the cardholder's card that was not
      * originally processed through the Gateway. In most situations credits are
      * disabled as transaction refunds should be used instead.
-     * @param  array  $parameters
-     * @return \Omnipay\NMI\Message\DirectPostCreditRequest
+     * @param  array $parameters
+     * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function credit(array $parameters = array())
     {
@@ -363,7 +365,7 @@ class DirectPostGateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return \Omnipay\NMI\Message\CreateCardRequest
+     * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function createCard(array $parameters = array())
     {
@@ -372,7 +374,7 @@ class DirectPostGateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return \Omnipay\NMI\Message\UpdateCardRequest
+     * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function updateCard(array $parameters = array())
     {
@@ -381,10 +383,16 @@ class DirectPostGateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return \Omnipay\NMI\Message\DeleteCardRequest
+     * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function deleteCard(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\NMI\Message\DirectPostDeleteCardRequest', $parameters);
+    }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = array())
     }
 }

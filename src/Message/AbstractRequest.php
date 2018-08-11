@@ -1,12 +1,14 @@
 <?php
+
 namespace Omnipay\NMI\Message;
 
 /**
-* NMI Abstract Request
-*/
+ * NMI Abstract Request
+ */
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
-    protected $endpoint = 'https://secure.nmi.com/api/transact.php';
+//    protected $endpoint = 'https://secure.nmi.com/api/transact.php';
+    protected $endpoint = 'https://secure.networkmerchants.com/api/transact.php';
 
     public function getUsername()
     {
@@ -326,9 +328,12 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function sendData($data)
     {
-        $httpResponse = $this->httpClient->post($this->getEndpoint(), null, $data)->send();
+        if (is_array($data)) {
+            $data = http_build_query($data);
+        }
+        $httpResponse = $this->httpClient->request('POST', $this->getEndpoint(), [], $data);
 
-        return $this->response = new DirectPostResponse($this, $httpResponse->getBody());
+        return $this->response = new DirectPostResponse($this, $httpResponse->getBody()->getContents());
     }
 
     public function setEndpoint($value)

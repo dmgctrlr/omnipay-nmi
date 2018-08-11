@@ -29,8 +29,8 @@ class DirectPostGatewayIntegrationTest extends GatewayTestCase
         $this->gateway->setPassword('password');
 
         $this->purchaseOptions = array(
-            'amount'=>'10.00',
-            'card'=>$this->getValidCard()
+            'amount' => '10.00',
+            'card'   => $this->getValidCard()
         );
     }
 
@@ -41,12 +41,15 @@ class DirectPostGatewayIntegrationTest extends GatewayTestCase
     {
         $response = $this->gateway->authorize($this->purchaseOptions)->send();
 
+        echo $this->gateway->getUsername();
+
+        echo $response->getMessage(), "\n";
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals('SUCCESS', $response->getMessage());
 
         $captureResponse = $this->gateway->capture(array(
-            'amount'=>'10.00',
-            'transactionReference'=>$response->getTransactionReference()
+            'amount'               => '10.00',
+            'transactionReference' => $response->getTransactionReference()
         ))->send();
 
         $this->assertTrue($captureResponse->isSuccessful());
@@ -60,11 +63,13 @@ class DirectPostGatewayIntegrationTest extends GatewayTestCase
     {
         $response = $this->gateway->purchase($this->purchaseOptions)->send();
 
+        echo $response->getMessage(), "\n";
+
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals('SUCCESS', $response->getMessage());
 
         $refundResponse = $this->gateway->refund(array(
-            'transactionReference'=>$response->getTransactionReference()
+            'transactionReference' => $response->getTransactionReference()
         ))->send();
 
         $this->assertTrue($refundResponse->isSuccessful());
@@ -78,11 +83,13 @@ class DirectPostGatewayIntegrationTest extends GatewayTestCase
     {
         $response = $this->gateway->purchase($this->purchaseOptions)->send();
 
+        echo $response->getMessage(), "\n";
+
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals('SUCCESS', $response->getMessage());
 
         $voidResponse = $this->gateway->void(array(
-            'transactionReference'=>$response->getTransactionReference()
+            'transactionReference' => $response->getTransactionReference()
         ))->send();
 
         $this->assertTrue($voidResponse->isSuccessful());
