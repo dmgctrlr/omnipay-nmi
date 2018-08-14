@@ -41,9 +41,6 @@ class DirectPostGatewayIntegrationTest extends GatewayTestCase
     {
         $response = $this->gateway->authorize($this->purchaseOptions)->send();
 
-        echo $this->gateway->getUsername();
-
-        echo $response->getMessage(), "\n";
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals('SUCCESS', $response->getMessage());
 
@@ -63,8 +60,6 @@ class DirectPostGatewayIntegrationTest extends GatewayTestCase
     {
         $response = $this->gateway->purchase($this->purchaseOptions)->send();
 
-        echo $response->getMessage(), "\n";
-
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals('SUCCESS', $response->getMessage());
 
@@ -82,8 +77,6 @@ class DirectPostGatewayIntegrationTest extends GatewayTestCase
     public function testPurchaseVoid()
     {
         $response = $this->gateway->purchase($this->purchaseOptions)->send();
-
-        echo $response->getMessage(), "\n";
 
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals('SUCCESS', $response->getMessage());
