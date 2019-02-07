@@ -390,4 +390,13 @@ class DirectPostGateway extends AbstractGateway
         return $this->createRequest('\Omnipay\NMI\Message\DirectPostDeleteCardRequest', $parameters);
     }
 
+    /**
+     * @param array $parameters
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function query(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\NMI\Message\Query\QueryRequest', $parameters);
+    }
+
 }

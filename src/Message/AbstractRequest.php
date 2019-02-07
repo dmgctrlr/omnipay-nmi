@@ -7,7 +7,6 @@ namespace Omnipay\NMI\Message;
  */
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
-//    protected $endpoint = 'https://secure.nmi.com/api/transact.php';
     protected $endpoint = 'https://secure.networkmerchants.com/api/transact.php';
 
     public function getUsername()
