@@ -13,7 +13,6 @@ class QueryRequest extends AbstractRequest
     protected $endTimestamp;
     protected $actionType;
     protected $condition;
-    protected $transaction_id;
 
     protected $endpoint = "https://secure.networkmerchants.com/api/query.php";
 
@@ -79,22 +78,6 @@ class QueryRequest extends AbstractRequest
     public function setEndTimestamp($endTimestamp)
     {
         $this->endTimestamp = $endTimestamp;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTransaction_id()
-    {
-        return $this->transaction_id;
-    }
-
-    /**
-     * @param mixed $transactionId
-     */
-    public function setTransaction_id($transactionId)
-    {
-        $this->transaction_id = $transactionId;
     }
 
     /**
