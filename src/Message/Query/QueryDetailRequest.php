@@ -52,7 +52,7 @@ class QueryDetailRequest extends AbstractRequest
             $headers,
             http_build_query($data, '', '&'));
 
-        $this->response = new QueryResponse($this, $httpResponse->getBody()->getContents());
+        $this->response = new QueryDetailResponse($this, $httpResponse->getBody()->getContents());
         return $this->response;
     }
 }
