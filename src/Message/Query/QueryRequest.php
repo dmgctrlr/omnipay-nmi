@@ -5,7 +5,7 @@ namespace Omnipay\NMI\Message\Query;
 use Omnipay\NMI\Message\AbstractRequest;
 
 /**
- * Authorize.Net AIM Authorize Request
+ * NMI Request
  */
 class QueryRequest extends AbstractRequest
 {
